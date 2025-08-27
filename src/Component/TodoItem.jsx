@@ -1,7 +1,20 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { usetodo } from '../context';
 
 function TodoItem({ todo }) {
+    const [isTodoEditable, setisTodoEditable] = useState(false)
+    const [todoMassage,setTodoMsg]=useState(todo.todo)
+const{updateTodo,deleteTodo,toggle}=usetodo
 
+editTodo=()=>{
+    updateTodo(todo.id,{...todo,todo:todoMassage})
+    setisTodoEditable(false)
+}
+const toggleCompleted=()=>{
+    toggle(todo.id)
+}
+
+    
   return (
       <div
           className={`flex border border-black/10 rounded-lg px-3 py-1.5 gap-x-3 shadow-sm shadow-white/50 duration-300  text-black ${
@@ -31,7 +44,7 @@ function TodoItem({ todo }) {
 
                   if (isTodoEditable) {
                       editTodo();
-                  } else setIsTodoEditable((prev) => !prev);
+                  } else setisTodoEditable((prev) => !prev);
               }}
               disabled={todo.completed}
           >
